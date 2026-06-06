@@ -1,10 +1,13 @@
-# Compiled binaries and executables
+# Compiled Executables
 *.exe
 *.out
 *.o
 *.obj
 
-# IDE and editor configurations
+# Python caching footprints
+__pycache__/
+*.pyc
+
+# Local Development Environments
 .vscode/
 .vs/
-.DS_Store

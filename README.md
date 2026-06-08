@@ -26,11 +26,11 @@ The project was developed as an honors collaboration between Nico and me, aiming
 
 ## What I Learned
 - How to build a data pipeline between C++ and Python
-- Differences in performance between programming languages (Python vs compiled languages)
+- Differences in performance between programming languages
 - Basics of network latency and request timing (TTFB)
-- How to configure and manage Windows development environments
-- File system and workflow management using Windows Explorer
-- Introduction to agent-based execution and data handling systems
+- How to configure and manage Windows dev environments
+- Using Windows explorer for workflow
+- Integration of human code and agent-based execution and data handling systems
 
 ---
 

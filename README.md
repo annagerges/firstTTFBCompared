@@ -3,7 +3,7 @@
 ## Overview
 This project measures and analyzes Time To First Byte (TTFB) latency for requests made to `google.com`. It collects a minimum of 10 data points per run and performs basic statistical analysis to compare initial request latency with subsequent requests.
 
-The project was developed as an honors collaboration between Nico and me, aiming to combine programming concepts with Calculus II ideas related to data behavior and variation over repeated trials.
+The project was developed as an honors collaboration between Nico and I, aiming to combine programming concepts with Calculus II ideas related to data behavior and variation over repeated trials.
 
 ---
 

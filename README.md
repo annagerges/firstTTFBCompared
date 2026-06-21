@@ -52,7 +52,7 @@ It's a bridge between math (numerical integration) and systems thinking (network
 Currently supports:
 - **Windows** (PowerShell)
 - **macOS** (Bash) — in progress
-- 
+  
 ## How to Run
 
 ### Prerequisites

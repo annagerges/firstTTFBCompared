@@ -1,64 +1,43 @@
-# TTFB Latency Analysis Tool: Windows Systems & Numerical Computing Framework
+# Server TTFB Performance Analyzer (C++ & Python)
 
-## Executive Overview
-Developed as an Honors Calculus 2 Research collaboration, this framework bridges systems-level network engineering and computational math on Windows environments. The uses Time-To-First-Byte (TTFB) network telemetry, maps the behavior into a probability distribution, and implements numerical integration (Simpson’s Rule) to predict network latency boundaries. 
+## Project Overview
+This was a colaborative project to explore how low-level network performance connects with mathematical modeling. The program pings a server multiple times (up to user input) to collect accurate Time-To-First-Byte (TTFB) data, maps that packet arrival behavior onto a bell curve, and uses Simpson's Rule (a calculus method) to calculate the probability of future network lag spikes.
 
-The primary objective is solving this problem: Given a localized sample vector of network ttfb, can we accurately model and quantify the probability of subsequent packet arrival times within arbitrary millisecond thresholds?
-
----
-
-## Core Capabilities
-* Stochastic Data Ingestion: Automates high-frequency, telemetry-driven HTTP/S requests using stream-based connection tracking to capture true packet headers prior to full body download.
-* Statistical Modeling: Ingests raw millisecond latency datasets, extracts descriptive features (μ, σ), and dynamically normalizes target bounds via Z-score calculations.
-* Numerical Integration Engine: Utilizes Simpson's Rule to solve the definite integral of the Probability Density Function (PDF) across tail distributions without relying on heavy external mathematical runtimes.
-* Polymorphic Runtime Pipeline:ombines ultra-fast compiled code (like C++) with flexible Python script, passing data back and forth through a direct data pipeline(`popen/pclose`) to get both speed and adaptability. 
----
-
-## Architectural Workflow & Mathematical Engine
-
-### 1. Mathematical Modeling
-The framework models the network latency as a continuous random variable following a normal distribution, X ~ N(μ, σ²), where the mean (μ) and standard deviation (σ) are derived from the vector. 
-
-To compute the probability P(a ≤ X ≤ b) that the next request's latency falls within a specific window [a, b], the tool evaluates the definite integral of the Gaussian PDF:
-
-P(a ≤ X ≤ b) = ∫_{a}^{b} [1 / (σ * √(2π))] * e^(-0.5 * ((x - μ) / σ)²) dx
-
-Because this integral lacks an elementary antiderivative, the Numerical Integration Engine dynamically determines the optimal subinterval step-count (n) via a tailored analytical error-bound function and implements Simpson's Rule across n equally spaced subintervals:
-
-∫_{a}^{b} f(x) dx ≈ (h / 3) * [f(x_0) + 4 * ∑ f(x_{2i-1}) + 2 * ∑ f(x_{2i}) + f(x_n)]
-
-### 2. Runtime Pipeline
-* Telemetry Ingestion Subsystem (Python): Executes remote polling iterations using isolated, streamlined connection reuse paradigms. Handles transport layer anomalies and passes raw stdout tokens cleanly to the host listener.
-* Core Engine Execution Layer (C++): Main routine provisions dynamic error buffers, configures integration step increments across a verified infinity-boundary framework ([Observed_Max, μ + 5σ]), and parses standard stream buffers on the fly.
+Instead of relying on heavy scientific libraries, I wrote the program integration engine and the data parsing.
 
 ---
 
-## Engineering Stack
-* Systems Layer: C++17 (Chosen for memory management, raw stream extraction, and fast execution loops during numeric summation).
-* Networking Layer: Python 3.8+ (Leveraging requests and sys subsystems to build zero-overhead HTTP session pools).
-* Environment: Visual Studio (Optimized for PowerShell pipelines, native Win32 tracking, and standard MSVC/GCC toolchains).
-* Version Control & Collaborations: Sending the code back and forth thorugh gmail.
+## Key Features
+* True TTFB Tracking: The Python script uses stream-based polling to measure exactly when the first byte of data returns from a server, making the tracking highly accurate.
+* Custom Math Engine: Implements Simpson's Rule using a dynamic error-bound formula to calculate the exact number of steps needed for high precision.
+* Program Interoperability: Uses standard Windows pipes (`_popen` and `_pclose`) to send data seamlessly from the Python tracking script straight into the C++ math engine.
 
 ---
 
-## Verification and Validation
-To ensure compliance with scientific computing standards, the numerical integration engine was verified against standard z-tables and algorithmic baselines:
-* Baseline Validation: Verified that the total area under the curve approximates 1.0 by testing wide boundary thresholds ([-5σ, 5σ]).
-* Adaptive Precision Test: An error-bound computation derives an absolute upper boundary limit for the fourth derivative of the Gaussian distribution, dynamically selecting a scale up to n subintervals to target floating-point precision down to 10^-6.
+## How It Works
+
+### 1. Collecting Telemetry
+The Python script runs a loop to ping a target URL. It handles potential connection errors or timeouts safely so the main program doesn't crash, then prints the exact millisecond values to the console stream.
+
+### 2. Processing the Math
+The C++ program reads the data points, calculates the mean and standard deviation, and determines a window between the highest observed TTFB and a "worst-case scenario" threshold. It then runs Simpson's Rule to find the exact area under the tail of the bell curve, giving us the percentile ranking.
 
 ---
 
-## Installation & Deployment
+## Technical Skills Shown
+* Code inter-process communication (IPC) using standard input/output pipes.
+* Applied calculus 2 concepts to real-world software without using pre-made math libraries.
+* Handled memory and loops efficiently (such as optimizing the alternating coefficients inside the integration loop).
+* Collaborative development and source control with my co-author, Nico.
 
-### Prerequisites
-* Compiler: GCC / G++ (v9.0+) or MSVC supporting C++17
-* Runtime: Python 3.8+ (Configured within Windows Environment Variables)
-* Dependencies: Run 'pip install requests' via PowerShell
+---
 
-### Windows Implementation (PowerShell)
+## How to Build and Run
+Built and tested on Windows using Visual Studio (MSVC) and GCC.
+
 ```powershell
-# Compile the computational backend via g++
-g++ -std=c++17 main.cpp ttfb_collector.cpp -o latency_analyzer.exe
+# Compile the C++ backend
+g++ -std=c++17 main.cpp ttfb_collector.cpp -o ttfb_analyzer.exe
 
-# Execute the integrated data pipeline
-./latency_analyzer.exe
+# Run the application
+./ttfb_analyzer.exe

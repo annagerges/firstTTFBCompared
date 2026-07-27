@@ -25,10 +25,10 @@ The C++ program reads the data points, calculates the mean and standard deviatio
 ---
 
 ## Technical Skills Shown
-* Code inter-process communication (IPC) using standard input/output pipes.
+* Code inter-process communication (IPC) using standard i/o pipes.
 * Applied calculus 2 concepts to real-world software without using pre-made math libraries.
-* Handled memory and loops efficiently (such as optimizing the alternating coefficients inside the integration loop).
-* Collaborative development and source control with my co-author, Nico.
+* Handled memory and loops efficiently (alternating coefficients inside the integration loop).
+* Collaborative development and source control with my classmate Nico.
 
 ---
 
@@ -36,8 +36,8 @@ The C++ program reads the data points, calculates the mean and standard deviatio
 Built and tested on Windows using Visual Studio (MSVC) and GCC.
 
 ```powershell
-# Compile the C++ backend
+# Compile the C++
 g++ -std=c++17 main.cpp ttfb_collector.cpp -o ttfb_analyzer.exe
 
-# Run the application
+# Run it
 ./ttfb_analyzer.exe
